@@ -1,15 +1,18 @@
-import { Stack, Tabs } from 'expo-router';
-import { FontAwesome5 } from '@expo/vector-icons';
+import { Stack } from 'expo-router';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { Provider } from 'react-redux';
+import {store} from './store/store';
 
 export default () => {
 	return (
-		<SafeAreaProvider>
-			<Stack screenOptions={{
-				headerShown: false
-			}}>
-				<Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-			</Stack>
-		</SafeAreaProvider>
+		<Provider store={store}>
+			<SafeAreaProvider>
+				<Stack screenOptions={{
+					headerShown: false
+				}}>
+					<Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+				</Stack>
+			</SafeAreaProvider>
+		</Provider>
 	);
 };

@@ -10,8 +10,8 @@ export default function Layout() {
 		headerShown: false,
 		}}>
 			<Tabs.Screen name="home" options={{title: "Home", tabBarIcon: () => <FontAwesome5 name="home" size={24} color="black" />}} />
-			<Tabs.Screen name="habits" options={{title: "My Habits", tabBarLabel: "My Habits", tabBarIcon: () => <FontAwesome5 name="list-ul" size={24} color="black" />}} />
-			<Tabs.Screen name="notifications" options={{title: "Notifications", tabBarLabel: "Notifications", tabBarIcon: () => <FontAwesome5 name="bell" size={24} color="black" />}} />
+			<Tabs.Screen name="habits" options={{title: "My Habits", headerShown: false, tabBarLabel: "My Habits", tabBarIcon: () => <FontAwesome5 name="list-ul" size={24} color="black" />}} />
+			<Tabs.Screen name="notifications" options={{title: "Notifications", headerShown: false, tabBarLabel: "Notifications", tabBarIcon: () => <FontAwesome5 name="bell" size={24} color="black" />}} />
 		</Tabs>
 	</SafeAreaProvider>
   );
