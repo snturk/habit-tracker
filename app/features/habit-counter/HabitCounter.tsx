@@ -1,37 +1,27 @@
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import { useAppDispatch, useAppSelector } from "../../store/store";
-import { decrement, increment } from "./counterSlice";
+import { HabitCounterModel, decrement, increment } from "./habitCounterSlice";
 import { FontAwesome5 } from "@expo/vector-icons";
 
 type HabitCounterProps = {
-  count: number,
-  name: string,
-  emoji: string,
-  isBad: boolean,
+  habit: HabitCounterModel;
 };
 
 export default function HabitCounter(props: HabitCounterProps) {
   const dispatch = useAppDispatch();
-  const count = useAppSelector((state) => state.counter.value);
-
-  const decrementHabit = () => {
-    if (count > 0) {
-      dispatch(decrement());
-    }
-  };
+  const habit = props.habit
 
   return (
     <View style={styles.container}>
       <View style={styles.textGroup}>
-        <Text style={[styles.text, styles.emoji]}>{props.emoji}</Text>
-        <Text style={styles.text}>{props.name}</Text>
+        <Text style={styles.text}>{habit.name}</Text>
       </View>
       <View style={styles.buttonGroup}>
         {/*TODO: Isbad ikonlara etki etmeli (renk, tip vs.) */}
-        <Pressable style={count === 0 ? styles.disabledButton : {}}
-        onPress={() => decrementHabit()}><FontAwesome5 name="minus" size={24} color="#4CAF50" /></Pressable>
-        <Text style={styles.count}>{count}</Text>
-        <Pressable onPress={() => dispatch(increment())}><FontAwesome5 name="plus" size={24} color="#4CAF50" /></Pressable>
+        <Pressable style={habit?.value === 0 ? styles.disabledButton : {}}
+        onPress={() => dispatch(decrement({name: habit.name}))}><FontAwesome5 name="minus" size={24} color="#4CAF50" /></Pressable>
+        <Text style={styles.count}>{habit?.value}</Text>
+        <Pressable onPress={() => dispatch(increment({name: habit.name}))}><FontAwesome5 name="plus" size={24} color="#4CAF50" /></Pressable>
       </View>
     </View>
   );
