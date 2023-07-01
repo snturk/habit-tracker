@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
-import counterReducer from '../features/counter/counterSlice'
+import habitCounterReducer from '../features/habit-counter/habitCounterSlice'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 
 export const store = configureStore({
   reducer: {
-	counter: counterReducer,
+	habitCounters: habitCounterReducer,
   },
 })
 export const useAppDispatch: () => typeof store.dispatch = useDispatch

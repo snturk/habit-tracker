@@ -1,10 +1,16 @@
-import { View, Text, StyleSheet } from "react-native";
-import HabitCounter from "../../features/counter/HabitCounter";
+import { View, StyleSheet } from "react-native";
+import HabitCounter from "../../features/habit-counter/HabitCounter";
+import { store, useAppSelector } from "../../store/store";
+import CreateHabitForm from "../../features/habit-counter/CreateHabitForm";
 
 export default function HabitsScreen() {
+	const habits = useAppSelector((state) => state.habitCounters.counters);
   return (
 	<View style={styles.container}>
-	  <HabitCounter emoji="💧" name="Drink water"/>
+		<CreateHabitForm />
+		{habits.length > 0 && habits.map((habit) => (
+			<HabitCounter key={habit.name} habit={habit} />
+		))}
 	</View>
   );
 }
@@ -14,5 +20,6 @@ const styles = StyleSheet.create({
 			marginTop: 50,
 			alignItems: 'center',
 			justifyContent: 'center',
+			flexDirection: 'column',
 		},
 });
