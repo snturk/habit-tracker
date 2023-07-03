@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 export interface HabitCounterModel {
   streak: number;
@@ -15,39 +15,39 @@ const initialState: HabitCounterState = {
 	counters: [],
 }
 
+type AddHabitPayload = {
+	name: string;
+	isBad: boolean;
+}
+
+type IncrementPayload = {
+	name: string;
+}
 
 export const counterSlice = createSlice({
   name: "counter",
   initialState,
   reducers: {
-    addHabit: (state, action) => {
+    addHabit: (state, { payload } : PayloadAction<AddHabitPayload>) => {
 		let habit: HabitCounterModel = {
 			streak: 0,
-			name: action.payload.name,
+			name: payload.name,
 			value: 0,
-			isBad: action.payload.isBad,
+			isBad: payload.isBad,
 		};
 		state.counters.push(habit);
 	},
-	increment: (state, action) => {
-		const { name } = action.payload;
+	increment: (state, { payload }: PayloadAction<IncrementPayload>) => {
+		const { name } = payload;
 		const counter = state.counters.find((counter) => counter.name === name);
-		if (counter) {
+		if (counter && counter.value >= 0) {
 			counter.streak += 1;
 			counter.value += 1;
 		}
-	},
-	decrement: (state, action) => {
-		const { name } = action.payload;
-		const counter = state.counters.find((counter) => counter.name === name);
-		if (counter) {
-			counter.streak -= 1;
-			counter.value -= 1;
-		}
-	},
+	}
   },
 });
 
-export const { addHabit, increment, decrement } = counterSlice.actions;
+export const { addHabit, increment } = counterSlice.actions;
 
 export default counterSlice.reducer;

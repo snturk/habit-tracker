@@ -2,11 +2,12 @@ import { View, StyleSheet } from "react-native";
 import HabitCounter from "../../features/habit-counter/HabitCounter";
 import { store, useAppSelector } from "../../store/store";
 import CreateHabitForm from "../../features/habit-counter/CreateHabitForm";
+import styles from "../../utils/globalStyles";
 
 export default function HabitsScreen() {
 	const habits = useAppSelector((state) => state.habitCounters.counters);
   return (
-	<View style={styles.container}>
+	<View style={styles.stdContainer}>
 		<CreateHabitForm />
 		{habits.length > 0 && habits.map((habit) => (
 			<HabitCounter key={habit.name} habit={habit} />
@@ -14,12 +15,3 @@ export default function HabitsScreen() {
 	</View>
   );
 }
-
-const styles = StyleSheet.create({
-	  container: {
-			marginTop: 50,
-			alignItems: 'center',
-			justifyContent: 'center',
-			flexDirection: 'column',
-		},
-});
