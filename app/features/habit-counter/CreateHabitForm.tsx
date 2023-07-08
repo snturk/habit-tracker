@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { useAppDispatch } from "../../store/store";
 import { addHabit } from "./habitCounterSlice";
-import { Button, Text, TextInput, View, StyleSheet } from "react-native";
-import Checkbox from 'expo-checkbox';
+import { Button, Text, TextInput, View, StyleSheet, Pressable } from "react-native";
 
 export default function CreateHabitForm() {
 	const dispatch = useAppDispatch();
 	const [name, setName] = useState("");
-	const [isBad, setIsBad] = useState(false);
+	const [isQuitting, setIsQuitting] = useState(false);
+	const [emoji, setEmoji] = useState("🌱");
 
 	return (
 		<View style={styles.container}>
@@ -17,20 +17,16 @@ export default function CreateHabitForm() {
 				onChangeText={(text) => setName(text)}
 				value={name}
 			/>
-			<View style={styles.checkboxContainer}>
-				<Checkbox
-					value={isBad}
-					onValueChange={setIsBad}
-					style={styles.checkbox}
-				/>
-				<Text style={styles.label}>Is bad?</Text>
-			</View>
+			{/* Emoji picker */}
+			<Pressable style={[styles.quittingContainer, isQuitting ? styles.quitting : null]} onPress={() => setIsQuitting(!isQuitting)}>
+				<Text style={styles.label}>I'm Quitting</Text>
+			</Pressable>
 			<Button
 				title="Create"
 				onPress={() => {
-					dispatch(addHabit({ name, isBad }))
+					dispatch(addHabit({ name, isQuitting, emoji }))
 					setName("");
-					setIsBad(false);
+					setIsQuitting(false);
 				}}
 			/>
 		</View>
@@ -51,14 +47,15 @@ const styles = StyleSheet.create({
 		borderWidth: 1,
 		padding: 10,
 	},
-	checkboxContainer: {
+	quittingContainer: {
 		flexDirection: "row",
 		marginBottom: 20,
 	},
-	checkbox: {
-		alignSelf: "center",
+	quitting: {
+		backgroundColor: "#F0F0F0",
 	},
 	label: {
 		margin: 8,
+		userSelect: "none",
 	},
 });

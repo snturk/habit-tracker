@@ -1,7 +1,6 @@
 import { View, Text, StyleSheet, Pressable } from "react-native";
-import { useAppDispatch, useAppSelector } from "../../store/store";
-import { HabitCounterModel, decrement, increment } from "./habitCounterSlice";
-import { FontAwesome5 } from "@expo/vector-icons";
+import { useAppDispatch } from "../../store/store";
+import { HabitCounterModel, increment } from "./habitCounterSlice";
 
 type HabitCounterProps = {
   habit: HabitCounterModel;
@@ -9,19 +8,20 @@ type HabitCounterProps = {
 
 export default function HabitCounter(props: HabitCounterProps) {
   const dispatch = useAppDispatch();
-  const habit = props.habit
+  const habit = props.habit;
 
   return (
     <View style={styles.container}>
-      <View style={styles.textGroup}>
-        <Text style={styles.text}>{habit.name}</Text>
+      {habit.emoji ? <View style={styles.leftPanel}>
+        <Text style={styles.emoji}>{habit.emoji}</Text>
+      </View> : null}
+      <View style={styles.centerPanel}>
+        <Text style={styles.habitName}>{habit.name}</Text>
       </View>
-      <View style={styles.buttonGroup}>
-        {/*TODO: Isbad ikonlara etki etmeli (renk, tip vs.) */}
-        <Pressable style={habit?.value === 0 ? styles.disabledButton : {}}
-        onPress={() => dispatch(decrement({name: habit.name}))}><FontAwesome5 name="minus" size={24} color="#4CAF50" /></Pressable>
-        <Text style={styles.count}>{habit?.value}</Text>
-        <Pressable onPress={() => dispatch(increment({name: habit.name}))}><FontAwesome5 name="plus" size={24} color="#4CAF50" /></Pressable>
+      <View style={[styles.rightPanel, habit.isQuitting ? styles.quitting : styles.notQuitting]}>
+        <Text style={styles.streak} onPress={() => dispatch(increment({name: habit.name}))}>
+          {habit.streak}
+        </Text>
       </View>
     </View>
   );
@@ -32,41 +32,56 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    height: 50,
-    padding: 16,
-    width: "85%",
-    backgroundColor: "#87CEEB",
-    borderWidth: 1,
-    borderColor: "#333333",
-    borderRadius: 10,
-  },
-  textGroup: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  buttonGroup: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    width: 100,
-  },
-  disabledButton: {
-    opacity: 0.5,
-  },
-  text: {
-    fontSize: 20,
-    color: "#333333",
+    width: "94%",
+    height: 70,
+    backgroundColor: "#F0F0F0",
+    borderRadius: 8,
+    marginTop: 20,
+    fontWeight: "bold",
+    color: "#242426",
+    fontFamily: "Inter",
   },
   emoji: {
     fontSize: 30,
-    marginRight: 10,
   },
-  count: {
+  habitName: {
+    fontSize: 20,
+    textAlign: "left",
+  },
+  leftPanel: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    textAlign: "center",
+    width: 50,
+  },
+  centerPanel: {
+    textAlign: "left",
+    paddingLeft: 10,
+    paddingRight: 10,
+    width: "calc(100% - 100px)",
+  },
+  rightPanel: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    textAlign: "center",
+    width: 50,
+    height: "100%",
+    borderBottomLeftRadius: 0,
+    borderTopLeftRadius: 0,
+    borderBottomRightRadius: 8,
+    borderTopRightRadius: 8,
+    boxShadow: "-4px 0px 10px 3px rgba(0, 0, 0, 0.25)"
+  },
+  streak: {
     fontSize: 20,
     fontWeight: "bold",
-    color: "#333333",
-    position: "absolute",
-    right: 40,
+  },
+  quitting: {
+    backgroundColor: "#C31712",
+  },
+  notQuitting: {
+    backgroundColor: "#71A29E",
   },
 });
