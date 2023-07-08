@@ -4,7 +4,8 @@ export interface HabitCounterModel {
   streak: number;
   name: string;
   value: number;
-  isBad: boolean;
+  isQuitting: boolean;
+  emoji?: string;
 }
 
 interface HabitCounterState {
@@ -17,7 +18,8 @@ const initialState: HabitCounterState = {
 
 type AddHabitPayload = {
 	name: string;
-	isBad: boolean;
+	isQuitting: boolean;
+	emoji?: string;
 }
 
 type IncrementPayload = {
@@ -33,7 +35,8 @@ export const counterSlice = createSlice({
 			streak: 0,
 			name: payload.name,
 			value: 0,
-			isBad: payload.isBad,
+			isQuitting: payload.isQuitting,
+			emoji: payload.emoji,
 		};
 		state.counters.push(habit);
 	},

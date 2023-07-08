@@ -1,8 +1,6 @@
 import { View, Text, StyleSheet, Pressable } from "react-native";
-import { useAppDispatch, useAppSelector } from "../../store/store";
+import { useAppDispatch } from "../../store/store";
 import { HabitCounterModel, increment } from "./habitCounterSlice";
-import { FontAwesome5 } from "@expo/vector-icons";
-import globalStyles from "../../utils/globalStyles";
 
 type HabitCounterProps = {
   habit: HabitCounterModel;
@@ -11,31 +9,19 @@ type HabitCounterProps = {
 export default function HabitCounter(props: HabitCounterProps) {
   const dispatch = useAppDispatch();
   const habit = props.habit;
-  const getBackgroundColor = () => {
-    if (habit.value < 5) {
-      return "#87CEEB";
-    } else if (habit.value < 10) {
-      return "#FFD700";
-    } else if (habit.value < 15) {
-      return "#FFA500";
-    } else if (habit.value < 20) {
-      return "#FF4500";
-    } else if (habit.value < 30) {
-      return "#53D2EA";
-    }
-  };
 
   return (
     <View style={styles.container}>
-      <View style={styles.textGroup}>
-        <Text style={styles.text}>{habit.name}</Text>
+      {habit.emoji ? <View style={styles.leftPanel}>
+        <Text style={styles.emoji}>{habit.emoji}</Text>
+      </View> : null}
+      <View style={styles.centerPanel}>
+        <Text style={styles.habitName}>{habit.name}</Text>
       </View>
-      <View style={styles.buttonGroup}>
-        {/*TODO: Isbad ikonlara etki etmeli (renk, tip vs.) */}
-        <Pressable style={[styles.button, {backgroundColor: getBackgroundColor()}]}
-        onPress={() => dispatch(increment({name: habit.name}))}>
-          <Text style={styles.count}>{habit?.value}</Text>
-        </Pressable>
+      <View style={[styles.rightPanel, habit.isQuitting ? styles.quitting : styles.notQuitting]}>
+        <Text style={styles.streak} onPress={() => dispatch(increment({name: habit.name}))}>
+          {habit.streak}
+        </Text>
       </View>
     </View>
   );
@@ -46,43 +32,56 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingHorizontal: 26,
-    paddingVertical: 18,
-    width: "85%",
-    backgroundColor: "#fbe89e",
-    borderWidth: 2,
-    borderRadius: 11,
+    width: "94%",
+    height: 70,
+    backgroundColor: "#F0F0F0",
+    borderRadius: 8,
+    marginTop: 20,
+    fontWeight: "bold",
+    color: "#242426",
+    fontFamily: "Inter",
   },
-  textGroup: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+  emoji: {
+    fontSize: 30,
   },
-  buttonGroup: {
+  habitName: {
+    fontSize: 20,
+    textAlign: "left",
+  },
+  leftPanel: {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
+    textAlign: "center",
     width: 50,
   },
-  text: {
-    fontSize: 20,
-    color: "#333333",
+  centerPanel: {
+    textAlign: "left",
+    paddingLeft: 10,
+    paddingRight: 10,
+    width: "calc(100% - 100px)",
   },
-  count: {
+  rightPanel: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    textAlign: "center",
+    width: 50,
+    height: "100%",
+    borderBottomLeftRadius: 0,
+    borderTopLeftRadius: 0,
+    borderBottomRightRadius: 8,
+    borderTopRightRadius: 8,
+    boxShadow: "-4px 0px 10px 3px rgba(0, 0, 0, 0.25)"
+  },
+  streak: {
     fontSize: 20,
     fontWeight: "bold",
-    color: "#333333",
   },
-  // A curved button that looks like a pill
-  button: {
-    alignItems: "center",
-    justifyContent: "center",
-    paddingHorizontal: 8,
-    paddingVertical: 14,
-    width: 80,
-    borderRadius: 13,
-    backgroundColor: "#87CEEB",
-    borderWidth: 2,
-    borderColor: "#333333",
-  }
+  quitting: {
+    backgroundColor: "#C31712",
+  },
+  notQuitting: {
+    backgroundColor: "#71A29E",
+  },
 });
