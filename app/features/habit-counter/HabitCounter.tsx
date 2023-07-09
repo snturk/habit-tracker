@@ -18,10 +18,13 @@ export default function HabitCounter(props: HabitCounterProps) {
       <View style={styles.centerPanel}>
         <Text style={styles.habitName}>{habit.name}</Text>
       </View>
-      <View style={[styles.rightPanel, habit.isQuitting ? styles.quitting : styles.notQuitting]}>
-        <Text style={styles.streak} onPress={() => dispatch(increment({name: habit.name}))}>
-          {habit.streak}
-        </Text>
+      <View 
+      style={[styles.rightPanel, habit.isQuitting ? styles.quitting : styles.notQuitting]}>
+        <Pressable style={styles.streakButton} onPress={() => dispatch(increment({name: habit.name}))}>
+          <Text style={styles.streak}>
+            {habit.streak}
+          </Text>
+        </Pressable>
       </View>
     </View>
   );
@@ -33,7 +36,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     width: "94%",
-    height: 70,
+    height: 80,
     backgroundColor: "#F0F0F0",
     borderRadius: 8,
     marginTop: 20,
@@ -59,14 +62,14 @@ const styles = StyleSheet.create({
     textAlign: "left",
     paddingLeft: 10,
     paddingRight: 10,
-    width: "calc(100% - 100px)",
+    width: "calc(100% - 125px)",
   },
   rightPanel: {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
     textAlign: "center",
-    width: 50,
+    width: 75,
     height: "100%",
     borderBottomLeftRadius: 0,
     borderTopLeftRadius: 0,
@@ -77,6 +80,12 @@ const styles = StyleSheet.create({
   streak: {
     fontSize: 20,
     fontWeight: "bold",
+  },
+  streakButton : {
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
+    height: "100%",
   },
   quitting: {
     backgroundColor: "#C31712",
