@@ -35,8 +35,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    width: "94%",
-    height: 80,
+    width: "90%",
+    height: 75,
     backgroundColor: "#F0F0F0",
     borderRadius: 8,
     marginTop: 20,
@@ -57,6 +57,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     textAlign: "center",
     width: 50,
+    marginLeft: 10
   },
   centerPanel: {
     textAlign: "left",
