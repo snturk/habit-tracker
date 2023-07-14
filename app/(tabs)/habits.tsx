@@ -1,17 +1,17 @@
 import { View, StyleSheet, Text } from "react-native";
-import HabitCounter from "../../features/habit-counter/HabitCounter";
-import { useAppSelector } from "../../store/store";
-import styles from "../../utils/globalStyles";
-import CreateHabitButton from "../../features/habit-counter/CreateHabitButton";
+import HabitCounter from "../features/habit-counter/HabitCounter";
+import { useAppSelector } from "../store/store";
+import { globalStyles } from "../utils/globalStyles";
+import CreateHabitButton from "../features/habit-counter/CreateHabitButton";
 import { useState } from "react";
-import CreateHabitModal from "../../features/habit-counter/CreateHabitModal";
+import CreateHabitModal from "../features/habit-counter/CreateHabitModal";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function HabitsScreen() {
 	const habits = useAppSelector((state) => state.habitCounters.counters);
 	const [showCreateModal, setShowCreateModal] = useState(false);
   return (
-	<SafeAreaView style={styles.stdContainer}>
+	<SafeAreaView style={globalStyles.stdContainer}>
 		<CreateHabitButton setShowForm={setShowCreateModal} />
 		<Text style={localStyles.title}>You are on streak at {habits.length} Habits</Text>
 		<CreateHabitModal show={showCreateModal} setShow={setShowCreateModal} />
