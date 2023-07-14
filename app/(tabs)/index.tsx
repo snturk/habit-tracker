@@ -1,10 +1,10 @@
-import { View, Text } from "react-native";
-
+import { View, Text, SafeAreaView } from "react-native";
+import { globalStyles } from "../utils/globalStyles";
 
 export default function IndexScreen() {
 	return (
-		<View>
+		<SafeAreaView style={globalStyles.stdContainer}>
 			<Text>Welcome to the app!</Text>
-		</View>
+		</SafeAreaView>
 	);
 }

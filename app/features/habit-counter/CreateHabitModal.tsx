@@ -48,7 +48,6 @@ export default function CreateHabitModal({ show, setShow }: { show: boolean, set
 				<View style={styles.inputContainer}>
 					<Text style={styles.label}>Is Quitting?</Text>
 					<Switch
-						style={styles.input}
 						onValueChange={(value) => setIsQuitting(value)}
 						value={isQuitting}
 					/>
@@ -94,6 +93,8 @@ const styles = StyleSheet.create({
 	input: {
 		padding: 10,
 		borderRadius: 8,
+		width: 300,
+		textAlign: "center",
 		backgroundColor: "#FFFFFF",
 		boxShadow: "0px 0px 4px 4px rgba(49, 172, 143, 0.25)",
 	},

@@ -42,7 +42,6 @@ const styles = StyleSheet.create({
     marginTop: 20,
     fontWeight: "bold",
     color: "#242426",
-    fontFamily: "Inter",
   },
   emoji: {
     fontSize: 30,

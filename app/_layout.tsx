@@ -6,14 +6,12 @@ import {store} from './store/store';
 export default () => {
 	var insets = useSafeAreaInsets();
 	return (
-		<SafeAreaProvider>
-			<Provider store={store}>
-				<Stack screenOptions={{
-					headerShown: false
-				}}>
-					<Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-				</Stack>
-			</Provider>
-		</SafeAreaProvider>
+		<Provider store={store}>
+			<Stack screenOptions={{
+				headerShown: false
+			}}>
+				<Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+			</Stack>
+		</Provider>
 	);
 };
