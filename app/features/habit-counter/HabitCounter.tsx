@@ -75,7 +75,8 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 0,
     borderBottomRightRadius: 8,
     borderTopRightRadius: 8,
-    boxShadow: "-4px 0px 10px 3px rgba(0, 0, 0, 0.25)"
+    boxShadow: "-4px 0px 10px 3px rgba(0, 0, 0, 0.25)",
+    userSelect: "none",
   },
   streak: {
     fontSize: 20,

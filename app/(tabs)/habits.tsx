@@ -10,9 +10,14 @@ import { SafeAreaView } from "react-native-safe-area-context";
 export default function HabitsScreen() {
 	const habits = useAppSelector((state) => state.habitCounters.counters);
 	const [showCreateModal, setShowCreateModal] = useState(false);
+
+	const showModal = () => {
+		setShowCreateModal(true);
+	}
+
   return (
 	<SafeAreaView style={globalStyles.stdContainer}>
-		<CreateHabitButton setShowForm={setShowCreateModal} />
+		<CreateHabitButton action={showModal} />
 		<Text style={localStyles.title}>You are on streak at {habits.length} Habits</Text>
 		<CreateHabitModal show={showCreateModal} setShow={setShowCreateModal} />
 		{habits.length > 0 && habits.map((habit) => (

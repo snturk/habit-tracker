@@ -1,14 +1,14 @@
 import { View, Pressable, StyleSheet, Text } from "react-native";
 
 
-export default function CreateHabitButton({ setShowForm }: { setShowForm: Function }) {
+export default function CreateHabitButton({ action }: { action: Function }) {
 
 	return (
-		<View style={styles.container}>
-			<Pressable style={styles.button} onPress={() => setShowForm(true)}>
+		<Pressable onPress={() => action()}>
+			<View style={styles.container}>
 				<Text style={styles.buttonText}>Start a new Habit</Text>
-			</Pressable>
-		</View>
+			</View>
+		</Pressable>
 	)
 }
 
@@ -19,13 +19,12 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 		justifyContent: "center",
 		alignItems: "center",
-		padding: 20,
 		backgroundColor: "#31AC8F",
 		borderRadius: 8,
+		width: 190,
+		height: 50,
 		boxShadow: "0px 0px 4px 4px rgba(49, 172, 143, 0.25)"
-
 	},
-	button: {},
 	buttonText: {
 		fontSize: 16,
 		fontWeight: "600",
